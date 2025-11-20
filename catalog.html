@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FIX 2: Added Meta Description -->
+    <meta name="description" content="Browse the 3D Printing Duo catalog. Featuring Labubu figures, keychains, Blob Rocks, and more unique 3D printed items.">
     <title>Product Catalog | 3D Printing Duo</title>
     <link rel="icon" href="logo.jpg" type="image/jpeg">
     
-    <!-- PERFORMANCE: Preconnect and Preload Font Awesome -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -16,7 +17,6 @@
     </noscript>
 
     <style>
-        /* --- STYLES --- */
         :root {
             --gradient-start: #05e5aa; 
             --gradient-end: #04b8df;   
@@ -136,7 +136,6 @@
     <div class="container">
         <header>
             <a href="index.html">
-                <!-- Added width/height and lazy loading -->
                 <img src="logo.jpg" alt="3D Printing Duo" class="logo-img" width="112" height="60">
             </a>
             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
@@ -146,9 +145,9 @@
 
         <div class="product-grid">
             
-            <!-- Added loading="lazy" to product images -->
             <div class="product-card">
-                <img src="BlobRocksCrates.webp" alt="Blob Rocks & Crate" loading="lazy">
+                <!-- Added width/height attributes to reduce layout shift -->
+                <img src="BlobRocksCrates.webp" alt="Blob Rocks & Crate" loading="lazy" width="300" height="300">
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Blob Rocks & Crate</div>
@@ -157,7 +156,7 @@
             </div>
 
             <div class="product-card">
-                <img src="Labubu.webp" alt="Labubu" loading="lazy">
+                <img src="Labubu.webp" alt="Labubu Figure" loading="lazy" width="300" height="300">
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Labubu</div>
@@ -166,7 +165,7 @@
             </div>
 
             <div class="product-card">
-                <img src="labubukeychain.webp" alt="Labubu Keychain" loading="lazy">
+                <img src="labubukeychain.webp" alt="Labubu Keychain" loading="lazy" width="300" height="300">
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Labubu Keychain</div>
@@ -180,7 +179,7 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank" aria-label="Facebook" rel="noopener"><i class="fab fa-facebook"></i></a>
                 <a href="mailto:info@3dprintingduo.ca" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <p style="margin-top: 20px;">&copy; 2025 3D Printing Duo. All rights reserved.</p>
