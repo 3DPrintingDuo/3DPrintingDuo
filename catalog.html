@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Catalog | 3D Printing Duo</title>
-        <link rel="icon" href="logo.jpg" type="image/jpeg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    
+    <!-- PERFORMANCE: Preconnect and Preload Font Awesome -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </noscript>
+
     <style>
         /* --- STYLES --- */
         :root {
-            /* Original Teal/Blue */
             --gradient-start: #05e5aa; 
             --gradient-end: #04b8df;   
-            
-            /* Rainbow for Title Only */
             --rainbow-gradient: linear-gradient(120deg, #ff0000, #ff7f00, #ffd700, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff);
-            
             --bg-color: #1e2022;       
             --card-bg: #2a2c2e;
             --text-main: #ffffff;
@@ -31,19 +36,17 @@
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         a { text-decoration: none; transition: 0.3s; color: white; }
         
-        /* Header */
         header { padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
         .logo-img { height: 60px; width: auto; margin-bottom: 20px; }
         
         .back-btn {
             margin-bottom: 20px;
             display: inline-block;
-            color: var(--gradient-start); /* Teal */
+            color: var(--gradient-start); 
             font-weight: bold;
         }
         .back-btn:hover { text-decoration: underline; }
 
-        /* Rainbow Title */
         h1 { 
             text-align: center; 
             margin-bottom: 40px; 
@@ -60,7 +63,6 @@
             100% { background-position: 200% 50%; }
         }
 
-        /* --- PRODUCT GRID STYLES --- */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -75,7 +77,7 @@
             background: #000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             cursor: pointer;
-            height: 300px; /* Fixed height for uniformity */
+            height: 300px; 
         }
 
         .product-card img {
@@ -85,7 +87,6 @@
             transition: transform 0.5s ease;
         }
 
-        /* The Overlay (Hidden by default, shown on hover) */
         .product-overlay {
             position: absolute;
             bottom: 0;
@@ -97,7 +98,7 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 20px;
-            opacity: 0; /* Hidden */
+            opacity: 0; 
             transition: opacity 0.3s ease;
         }
 
@@ -113,28 +114,20 @@
             margin-bottom: 5px;
         }
 
-        /* Original Teal Price */
         .product-price {
             font-size: 1.1rem;
             color: var(--gradient-start); 
             font-weight: 700;
         }
 
-        /* Hover Effects */
         .product-card:hover img {
-            transform: scale(1.1); /* Zoom image slightly */
+            transform: scale(1.1); 
             opacity: 0.6;
         }
 
-        .product-card:hover .product-overlay {
-            opacity: 1; /* Show overlay */
-        }
+        .product-card:hover .product-overlay { opacity: 1; }
+        .product-card:hover .product-info { transform: translateY(0); }
 
-        .product-card:hover .product-info {
-            transform: translateY(0); /* Move text up slightly */
-        }
-
-        /* Footer */
         footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #333; }
     </style>
 </head>
@@ -143,18 +136,19 @@
     <div class="container">
         <header>
             <a href="index.html">
-                <img src="logo.jpg" alt="3D Printing Duo" class="logo-img">
+                <!-- Added width/height and lazy loading -->
+                <img src="logo.jpg" alt="3D Printing Duo" class="logo-img" width="112" height="60">
             </a>
             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </header>
 
-        <!-- Rainbow Title -->
         <h1>Our Catalog</h1>
 
         <div class="product-grid">
             
+            <!-- Added loading="lazy" to product images -->
             <div class="product-card">
-                <img src="BlobRocksCrates.jpg" alt="Blob Rocks & Crate">
+                <img src="BlobRocksCrates.webp" alt="Blob Rocks & Crate" loading="lazy">
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Blob Rocks & Crate</div>
@@ -163,7 +157,7 @@
             </div>
 
             <div class="product-card">
-                <img src="Labubu.jpg" alt="Labubu">
+                <img src="Labubu.webp" alt="Labubu" loading="lazy">
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Labubu</div>
@@ -172,7 +166,7 @@
             </div>
 
             <div class="product-card">
-                <img src="labubukeychain.jpg" alt="Labubu Keychain">
+                <img src="labubukeychain.webp" alt="Labubu Keychain" loading="lazy">
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Labubu Keychain</div>
@@ -186,8 +180,8 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="mailto:info@3dprintingduo.ca"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="mailto:info@3dprintingduo.ca" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <p style="margin-top: 20px;">&copy; 2025 3D Printing Duo. All rights reserved.</p>
         </div>
