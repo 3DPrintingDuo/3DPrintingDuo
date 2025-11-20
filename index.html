@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Printing Duo</title>
     
-    <!-- FAVICON (Browser Tab Icon) -->
+    <!-- FAVICON -->
     <link rel="icon" href="logo.jpg" type="image/jpeg">
 
-    <!-- Font Awesome for Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* --- CSS STYLES --- */
         :root {
+            /* Original Teal/Blue Theme */
             --gradient-start: #05e5aa; 
             --gradient-end: #04b8df;   
+            
+            /* Rainbow Gradient (Only for Business Name) */
+            --rainbow-gradient: linear-gradient(120deg, #ff0000, #ff7f00, #ffd700, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff);
+
             --bg-color: #1e2022;       
             --card-bg: #2a2c2e;
             --text-main: #ffffff;
@@ -32,10 +37,18 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-        .text-gradient {
-            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        /* Rainbow Business Name */
+        .rainbow-text {
+            background: var(--rainbow-gradient);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: gradientFlow 5s linear infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         a { text-decoration: none; transition: 0.3s; }
@@ -74,23 +87,18 @@
             border: none;
         }
 
-        .btn-primary {
-            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
-            color: #121212;
-        }
-        
-        .btn-fb {
-            background-color: #1877F2; 
-            color: white;
-        }
-
+        /* Only Secondary (Gray) Style is now used */
         .btn-secondary {
             background: #333; 
             color: white; 
             border: 1px solid #555;
         }
 
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn:hover { 
+            opacity: 0.9; 
+            transform: translateY(-2px); 
+            border-color: #777;
+        }
 
         /* Info Grid */
         .info-section {
@@ -102,7 +110,9 @@
         }
 
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        
         .info-block h3 { margin-bottom: 20px; color: var(--gradient-start); font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        
         .info-list { list-style: none; }
         .info-list li { margin-bottom: 10px; border-bottom: 1px solid #3a3a3a; padding-bottom: 10px; display: flex; justify-content: space-between; }
         .contact-link { color: var(--text-main); display: block; margin-bottom: 10px; font-size: 1.1rem; }
@@ -173,12 +183,14 @@
 
     <section class="hero">
         <div class="container">
-            <h1 class="text-gradient">3D Printing Duo</h1>
+            <!-- Rainbow Title -->
+            <h1 class="rainbow-text">3D Printing Duo</h1>
             <p></p>
             
             <div class="btn-group">
-                <a href="catalog.html" class="btn btn-primary"><i class="fas fa-th"></i> View Product Catalog</a>
-                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank" class="btn btn-fb"><i class="fab fa-facebook-f"></i> Facebook Page</a>
+                <!-- All buttons changed to 'btn-secondary' (Gray) -->
+                <a href="catalog.html" class="btn btn-secondary"><i class="fas fa-th"></i> View Product Catalog</a>
+                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank" class="btn btn-secondary"><i class="fab fa-facebook-f"></i> Facebook Page</a>
             </div>
 
             <div class="btn-group" style="margin-top: 15px;">
@@ -209,7 +221,8 @@
                         Edmonton, AB T5G 0E7
                     </p>
                     
-                    <a href="https://maps.app.goo.gl/nvtDnMDXZjsxPahSA" target="_blank" class="btn btn-primary" style="font-size: 0.9rem; margin-bottom: 20px;">
+                    <!-- Changed to 'btn-secondary' (Gray) -->
+                    <a href="https://maps.app.goo.gl/nvtDnMDXZjsxPahSA" target="_blank" class="btn btn-secondary" style="font-size: 0.9rem; margin-bottom: 20px;">
                         <i class="fas fa-directions"></i> Get Directions
                     </a>
                     
@@ -270,18 +283,15 @@
 
     <script>
         let slideIndex = 1;
-        let slideTimer; // Variable to hold the auto-play timer
+        let slideTimer; 
 
-        // Start the slideshow
         showSlides(slideIndex);
 
-        // Next/previous controls (Manually changing slides)
         function plusSlides(n) {
-            clearTimeout(slideTimer); // Stop the auto-timer so it doesn't jump immediately after you click
+            clearTimeout(slideTimer);
             showSlides(slideIndex += n);
         }
 
-        // Main Slideshow Logic
         function showSlides(n) {
             let i;
             let slides = document.getElementsByClassName("mySlides");
@@ -295,7 +305,6 @@
             
             slides[slideIndex-1].style.display = "block";  
             
-            // Restart the auto-play timer (Change image every 7.5 seconds)
             slideTimer = setTimeout(function() { plusSlides(1) }, 7500); 
         }
     </script>
