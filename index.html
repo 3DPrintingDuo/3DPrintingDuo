@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FIX 2: Added Meta Description -->
-    <meta name="description" content="3D Printing Duo in Edmonton - Your local source for 3D printed collectibles like Labubu, Blob Rocks, and custom prints. Visit us at Queen Mary's Market.">
-    <title>3D Printing Duo | Edmonton 3D Print Shop</title>
+    <meta name="description" content="3D Printing Duo in Edmonton">
+    <title>3D Printing Duo</title>
     
     <link rel="icon" href="logo.webp" type="image/webp">
-
-    <!-- Preconnect to CDN -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-
-    <!-- Font Awesome -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
 
@@ -23,8 +18,14 @@
     <style>
         :root {
             --gradient-start: #05e5aa; 
-            --gradient-end: #04b8df;   
-            --rainbow-gradient: linear-gradient(120deg, #ff0000, #ff7f00, #ffd700, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff);
+            --gradient-end: #04b8df;
+            /* CHANGED: Compacted the gradient by repeating the spectrum. 
+               This makes the bands thinner so the whole rainbow fits in the text. */
+            --rainbow-gradient: linear-gradient(
+                120deg, 
+                #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff,
+                #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff
+            );
             --bg-color: #1e2022;       
             --card-bg: #2a2c2e;
             --text-main: #ffffff;
@@ -40,10 +41,16 @@
             line-height: 1.6;
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .container { 
+            max-width: 1600px; 
+            width: 95%;
+            margin: 0 auto; 
+            padding: 0 20px; 
+        }
 
         .rainbow-text {
             background: var(--rainbow-gradient);
+            /* Size 200% with the double-gradient ensures 1 full rainbow is always visible */
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -52,23 +59,32 @@
 
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+            100% { background-position: -200% 50%; }
         }
 
         a { text-decoration: none; transition: 0.3s; }
         
-        header { padding: 20px 0; display: flex; justify-content: center; align-items: center; }
-        .logo-img { height: 80px; width: auto; }
+        header { 
+            padding: 20px 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        
+        .logo-img { 
+            height: 180px; 
+            width: auto; 
+        }
 
         .hero {
-            padding: 60px 20px 40px 20px;
+            padding: 40px 20px; 
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .hero h1 { font-size: 3.5rem; margin-bottom: 15px; line-height: 1.2; font-weight: 800; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 15px; line-height: 1.1; font-weight: 800; padding-bottom: 5px; }
         .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin-bottom: 30px; }
 
         .btn-group {
@@ -103,15 +119,15 @@
 
         .info-section {
             background-color: var(--card-bg);
-            margin: 40px 0;
+            margin: 40px auto; 
             padding: 40px;
             border-radius: 15px;
             border: 1px solid #444;
+            max-width: 1100px; 
         }
 
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
         
-        /* FIX 6: Updated CSS selector from h3 to h2 */
         .info-block h2 { margin-bottom: 20px; color: var(--gradient-start); font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
         
         .info-list { list-style: none; }
@@ -136,7 +152,6 @@
         .mySlides { display: none; }
         .mySlides img { vertical-align: middle; width: 100%; height: 500px; object-fit: cover; }
 
-        /* FIX 1: Updated styles to support button element */
         .prev, .next {
             cursor: pointer;
             position: absolute;
@@ -151,13 +166,37 @@
             border-radius: 0 3px 3px 0;
             user-select: none;
             background-color: rgba(0,0,0,0.3);
-            border: none; /* Remove default button border */
-            font-family: inherit; /* Inherit font */
+            border: none; 
+            font-family: inherit; 
         }
 
         .next { right: 0; border-radius: 3px 0 0 3px; }
         .prev { left: 0; border-radius: 0 3px 3px 0; }
-        .prev:hover, .next:hover { background-color: rgba(5, 229, 170, 0.8); color: #000; }
+        
+        .prev:hover, .next:hover { 
+            background-color: #ffffff; 
+            color: #000000; 
+        }
+
+        .dots-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #555;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .active, .dot:hover {
+            background-color: var(--gradient-start);
+        }
 
         .fade { animation-name: fade; animation-duration: 1.5s; }
         @keyframes fade { from {opacity: .4} to {opacity: 1} }
@@ -172,6 +211,8 @@
             .info-grid { grid-template-columns: 1fr; }
             .info-section { padding: 20px; }
             .mySlides img { height: 300px; }
+            header { justify-content: center; }
+            .container { width: 100%; }
         }
     </style>
 </head>
@@ -179,7 +220,7 @@
 
     <div class="container">
         <header>
-            <img src="logo.webp" alt="3D Printing Duo" class="logo-img" width="150" height="80">
+            <img src="logo.webp" alt="3D Printing Duo" class="logo-img" width="145" height="180">
         </header>
     </div>
 
@@ -204,10 +245,8 @@
         <div class="info-section">
             <div class="info-grid">
                 <div class="info-block">
-                    <!-- FIX 6: Changed h3 to h2 for correct sequential order -->
                     <h2><i class="far fa-clock"></i> Hours of Operation</h2>
                     <ul class="info-list">
-                        <!-- FIX 5: Changed color from #666 to #ccc for contrast -->
                         <li><span>Mon</span> <span style="color: #cccccc;">Closed</span></li>
                         <li><span>Tue - Fri</span> <span>12:00 PM - 5:00 PM</span></li>
                         <li><span>Saturday</span> <span>10:00 AM - 6:00 PM</span></li>
@@ -216,7 +255,6 @@
                 </div>
 
                 <div class="info-block">
-                    <!-- FIX 6: Changed h3 to h2 -->
                     <h2><i class="fas fa-map-marker-alt"></i> Visit Us</h2>
                     <p style="margin-bottom: 15px; font-size: 1.1rem;">
                         <strong>Queen Mary's Market</strong><br>
@@ -264,9 +302,18 @@
                     <img src="gallery7.jpg" alt="Store Interior - View 7" loading="lazy" width="800" height="500">
                 </div>
 
-                <!-- FIX 1: Changed <a> to <button> and added aria-label -->
                 <button class="prev" onclick="plusSlides(-1)" aria-label="Previous Slide">&#10094;</button>
                 <button class="next" onclick="plusSlides(1)" aria-label="Next Slide">&#10095;</button>
+            </div>
+
+            <div class="dots-container">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+                <span class="dot" onclick="currentSlide(7)"></span>
             </div>
         </div>
     </section>
@@ -292,9 +339,15 @@
             showSlides(slideIndex += n);
         }
 
+        function currentSlide(n) {
+            clearTimeout(slideTimer);
+            showSlides(slideIndex = n);
+        }
+
         function showSlides(n) {
             let i;
             let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
             
             if (n > slides.length) {slideIndex = 1}
             if (n < 1) {slideIndex = slides.length}
@@ -302,8 +355,15 @@
             for (i = 0; i < slides.length; i++) {
                 slides[i].style.display = "none";  
             }
+
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
             
             slides[slideIndex-1].style.display = "block";  
+            if (dots.length > 0) {
+                dots[slideIndex-1].className += " active";
+            }
             
             slideTimer = setTimeout(function() { plusSlides(1) }, 7500); 
         }
