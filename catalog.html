@@ -7,10 +7,15 @@
         <link rel="icon" href="logo.jpg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- REUSING SAME STYLES FOR CONSISTENCY --- */
+        /* --- STYLES --- */
         :root {
+            /* Original Teal/Blue */
             --gradient-start: #05e5aa; 
             --gradient-end: #04b8df;   
+            
+            /* Rainbow for Title Only */
+            --rainbow-gradient: linear-gradient(120deg, #ff0000, #ff7f00, #ffd700, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff);
+            
             --bg-color: #1e2022;       
             --card-bg: #2a2c2e;
             --text-main: #ffffff;
@@ -33,12 +38,27 @@
         .back-btn {
             margin-bottom: 20px;
             display: inline-block;
-            color: var(--gradient-start);
+            color: var(--gradient-start); /* Teal */
             font-weight: bold;
         }
         .back-btn:hover { text-decoration: underline; }
 
-        h1 { text-align: center; margin-bottom: 40px; font-size: 2.5rem; }
+        /* Rainbow Title */
+        h1 { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            font-size: 2.5rem; 
+            background: var(--rainbow-gradient);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 5s linear infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
 
         /* --- PRODUCT GRID STYLES --- */
         .product-grid {
@@ -93,9 +113,10 @@
             margin-bottom: 5px;
         }
 
+        /* Original Teal Price */
         .product-price {
             font-size: 1.1rem;
-            color: var(--gradient-start);
+            color: var(--gradient-start); 
             font-weight: 700;
         }
 
@@ -127,6 +148,7 @@
             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </header>
 
+        <!-- Rainbow Title -->
         <h1>Our Catalog</h1>
 
         <div class="product-grid">
@@ -136,7 +158,6 @@
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Blob Rocks & Crate</div>
-                        <div class="product-price">$8.00</div>
                     </div>
                 </div>
             </div>
@@ -146,7 +167,6 @@
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Labubu</div>
-                        <div class="product-price">$35.00</div>
                     </div>
                 </div>
             </div>
@@ -156,7 +176,6 @@
                 <div class="product-overlay">
                     <div class="product-info">
                         <div class="product-name">Labubu Keychain</div>
-                        <div class="product-price">$6.00</div>
                     </div>
                 </div>
             </div>
