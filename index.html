@@ -6,20 +6,28 @@
     <title>3D Printing Duo</title>
     
     <!-- FAVICON -->
-    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <link rel="icon" href="logo.webp" type="image/webp">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- PERFORMANCE: Preconnect to the CDN to speed up handshake -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+    <!-- PERFORMANCE: Preload Font Awesome to fix Render Blocking -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+
+    <!-- PERFORMANCE: Load CSS asynchronously -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+
+    <!-- Fallback for users with JavaScript disabled -->
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </noscript>
+
     <style>
         /* --- CSS STYLES --- */
         :root {
-            /* Original Teal/Blue Theme */
             --gradient-start: #05e5aa; 
             --gradient-end: #04b8df;   
-            
-            /* Rainbow Gradient (Only for Business Name) */
             --rainbow-gradient: linear-gradient(120deg, #ff0000, #ff7f00, #ffd700, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff);
-
             --bg-color: #1e2022;       
             --card-bg: #2a2c2e;
             --text-main: #ffffff;
@@ -37,7 +45,6 @@
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-        /* Rainbow Business Name */
         .rainbow-text {
             background: var(--rainbow-gradient);
             background-size: 200% auto;
@@ -56,7 +63,6 @@
         header { padding: 20px 0; display: flex; justify-content: center; align-items: center; }
         .logo-img { height: 80px; width: auto; }
 
-        /* Hero Section */
         .hero {
             padding: 60px 20px 40px 20px;
             text-align: center;
@@ -68,7 +74,6 @@
         .hero h1 { font-size: 3.5rem; margin-bottom: 15px; line-height: 1.2; font-weight: 800; }
         .hero p { font-size: 1.25rem; color: var(--text-muted); max-width: 600px; margin-bottom: 30px; }
 
-        /* Buttons */
         .btn-group {
             display: flex; 
             gap: 15px; 
@@ -87,7 +92,6 @@
             border: none;
         }
 
-        /* Only Secondary (Gray) Style is now used */
         .btn-secondary {
             background: #333; 
             color: white; 
@@ -100,7 +104,6 @@
             border-color: #777;
         }
 
-        /* Info Grid */
         .info-section {
             background-color: var(--card-bg);
             margin: 40px 0;
@@ -118,7 +121,6 @@
         .contact-link { color: var(--text-main); display: block; margin-bottom: 10px; font-size: 1.1rem; }
         .contact-link:hover { color: var(--gradient-start); }
 
-        /* --- SLIDESHOW STYLES --- */
         .gallery-section { padding: 40px 0; text-align: center; }
         .gallery-section h2 { margin-bottom: 30px; font-size: 2rem; }
 
@@ -130,12 +132,13 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 2px solid #333;
+            /* Prevent layout shift before images load */
+            min-height: 300px; 
         }
 
         .mySlides { display: none; }
         .mySlides img { vertical-align: middle; width: 100%; height: 500px; object-fit: cover; }
 
-        /* Arrows */
         .prev, .next {
             cursor: pointer;
             position: absolute;
@@ -156,7 +159,6 @@
         .prev { left: 0; border-radius: 0 3px 3px 0; }
         .prev:hover, .next:hover { background-color: rgba(5, 229, 170, 0.8); color: #000; }
 
-        /* Animation */
         .fade { animation-name: fade; animation-duration: 1.5s; }
         @keyframes fade { from {opacity: .4} to {opacity: 1} }
 
@@ -177,18 +179,17 @@
 
     <div class="container">
         <header>
-            <img src="logo.jpg" alt="3D Printing Duo" class="logo-img">
+            <!-- Added width/height for CLS (Cumulative Layout Shift) prevention -->
+            <img src="logo.webp" alt="3D Printing Duo" class="logo-img" width="150" height="80">
         </header>
     </div>
 
     <section class="hero">
         <div class="container">
-            <!-- Rainbow Title -->
             <h1 class="rainbow-text">3D Printing Duo</h1>
             <p></p>
             
             <div class="btn-group">
-                <!-- All buttons changed to 'btn-secondary' (Gray) -->
                 <a href="catalog.html" class="btn btn-secondary"><i class="fas fa-th"></i> View Product Catalog</a>
                 <a href="https://www.facebook.com/3DPrintingDuo" target="_blank" class="btn btn-secondary"><i class="fab fa-facebook-f"></i> Facebook Page</a>
             </div>
@@ -221,7 +222,6 @@
                         Edmonton, AB T5G 0E7
                     </p>
                     
-                    <!-- Changed to 'btn-secondary' (Gray) -->
                     <a href="https://maps.app.goo.gl/nvtDnMDXZjsxPahSA" target="_blank" class="btn btn-secondary" style="font-size: 0.9rem; margin-bottom: 20px;">
                         <i class="fas fa-directions"></i> Get Directions
                     </a>
@@ -235,36 +235,34 @@
         </div>
     </div>
 
-    <!-- SLIDESHOW WITH ARROWS -->
     <section class="gallery-section">
         <div class="container">
             <h2>Inside The Store</h2>
             
             <div class="slideshow-container">
-                <!-- IMAGES -->
+                <!-- First image is eager loaded (normal), others are lazy to speed up page load -->
                 <div class="mySlides fade">
-                    <img src="gallery1.jpg" alt="Store Image 1">
+                    <img src="gallery1.webp" alt="Store Image 1">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery2.jpg" alt="Store Image 2">
+                    <img src="gallery2.webp" alt="Store Image 2" loading="lazy">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery3.jpg" alt="Store Image 3">
+                    <img src="gallery3.webp" alt="Store Image 3" loading="lazy">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery4.jpg" alt="Store Image 4">
+                    <img src="gallery4.webp" alt="Store Image 4" loading="lazy">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery5.jpg" alt="Store Image 5">
+                    <img src="gallery5.webp" alt="Store Image 5" loading="lazy">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery6.jpg" alt="Store Image 6">
+                    <img src="gallery6.jpg" alt="Store Image 6" loading="lazy">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery7.jpg" alt="Store Image 7">
+                    <img src="gallery7.jpg" alt="Store Image 7" loading="lazy">
                 </div>
 
-                <!-- ARROWS -->
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
@@ -274,8 +272,8 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="mailto:info@3dprintingduo.ca"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.facebook.com/3DPrintingDuo" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="mailto:info@3dprintingduo.ca" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <p style="margin-top: 20px;">&copy; 2025 3D Printing Duo. All rights reserved.</p>
         </div>
