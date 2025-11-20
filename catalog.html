@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FIX 2: Added Meta Description -->
-    <meta name="description" content="Browse the 3D Printing Duo catalog. Featuring Labubu figures, keychains, Blob Rocks, and more unique 3D printed items.">
+    <meta name="description" content="Browse the 3D Printing Duo product catalog.">
     <title>Product Catalog | 3D Printing Duo</title>
     <link rel="icon" href="logo.webp" type="image/webp">
     
@@ -33,17 +32,30 @@
             color: var(--text-main);
             line-height: 1.6;
         }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1600px; width: 95%; margin: 0 auto; padding: 0 20px; }
         a { text-decoration: none; transition: 0.3s; color: white; }
         
-        header { padding: 20px 0; display: flex; flex-direction: column; align-items: center; }
-        .logo-img { height: 60px; width: auto; margin-bottom: 20px; }
+        header { 
+            padding: 20px 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+        }
+        
+        .logo-img { 
+            height: 180px; 
+            width: auto; 
+            margin-bottom: 0; 
+        }
         
         .back-btn {
-            margin-bottom: 20px;
+            margin-top: 15px;
+            margin-bottom: 0;
             display: inline-block;
             color: var(--gradient-start); 
             font-weight: bold;
+            font-size: 1.1rem;
         }
         .back-btn:hover { text-decoration: underline; }
 
@@ -74,8 +86,11 @@
             position: relative;
             border-radius: 10px;
             overflow: hidden;
-            background: #000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            /* CHANGED: Set to Black to match photo backgrounds and hide 'fill in' bars */
+            background: #000000; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            /* ADDED: A subtle border to define the card against the dark grey page */
+            border: 1px solid #333;
             cursor: pointer;
             height: 300px; 
         }
@@ -83,7 +98,8 @@
         .product-card img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            /* KEEPS: 'contain' prevents cutting off */
+            object-fit: contain; 
             transition: transform 0.5s ease;
         }
 
@@ -128,7 +144,11 @@
         .product-card:hover .product-overlay { opacity: 1; }
         .product-card:hover .product-info { transform: translateY(0); }
 
-        footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #333; }
+        footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #333; margin-top: 50px; }
+        
+        .social-links { margin-top: 20px; }
+        .social-links a { color: var(--text-main); font-size: 1.5rem; margin: 0 15px; }
+        .social-links a:hover { color: var(--gradient-start); }
     </style>
 </head>
 <body>
@@ -136,7 +156,7 @@
     <div class="container">
         <header>
             <a href="index.html">
-                <img src="logo.webp" alt="3D Printing Duo" class="logo-img" width="112" height="60">
+                <img src="logo.webp" alt="3D Printing Duo" class="logo-img" width="145" height="180">
             </a>
             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </header>
@@ -146,7 +166,6 @@
         <div class="product-grid">
             
             <div class="product-card">
-                <!-- Added width/height attributes to reduce layout shift -->
                 <img src="BlobRocksCrates.webp" alt="Blob Rocks & Crate" loading="lazy" width="300" height="300">
                 <div class="product-overlay">
                     <div class="product-info">
@@ -188,5 +207,3 @@
 
 </body>
 </html>
-
-
