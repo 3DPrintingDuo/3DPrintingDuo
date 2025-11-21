@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Blob Rocks & Crate",
+        "image": "BlobRocksCrates.webp",
+        "alt": "Blob Rocks & Crate",
+        "categories": ["Decor"]
+    },
+    {
+        "name": "Labubu",
+        "image": "Labubu.webp",
+        "alt": "Labubu Figure",
+        "categories": ["Figures"]
+    },
+    {
+        "name": "Labubu Keychain",
+        "image": "labubukeychain.webp",
+        "alt": "Labubu Keychain",
+        "categories": ["Figures", "Keychains"]
+    }
+]
