@@ -20,13 +20,27 @@
             --text-muted: #cccccc;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
+            /* Sticky Footer Logic: Forces footer to bottom of viewport */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .container { max-width: 1600px; width: 95%; margin: 0 auto; padding: 0 20px; }
+
+        /* Flex: 1 pushes the footer down if content is short */
+        .container { 
+            max-width: 1600px; 
+            width: 95%; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            flex: 1; 
+        }
+
         a { text-decoration: none; transition: 0.3s; color: white; }
         
         header { 
@@ -137,6 +151,23 @@
             transition: transform 0.5s ease;
         }
 
+        .multi-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--gradient-start);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 2;
+            border: 1px solid #333;
+            backdrop-filter: blur(2px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         .product-overlay {
             position: absolute;
             bottom: 0;
@@ -181,6 +212,113 @@
         .product-card:hover .product-overlay { opacity: 1; }
         .product-card:hover .product-info { transform: translateY(0); }
 
+        /* --- MODAL / LIGHTBOX STYLES --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none; /* Allows clicking background through wrapper */
+        }
+
+        /* Container for the image itself */
+        .modal-image-container {
+            position: relative;
+            max-width: 80vw; /* Limit width to leave room for arrows */
+            max-height: 80vh;
+            display: flex;
+            justify-content: center;
+            transition: background-color 0.3s ease; 
+            border-radius: 5px;
+            pointer-events: auto; /* Re-enable clicks for image */
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            display: block; 
+        }
+
+        .modal-caption {
+            margin-top: 20px;
+            text-align: center;
+            color: #fff;
+            width: 100%;
+            pointer-events: auto;
+        }
+        
+        .modal-caption h2 { font-size: 1.8rem; margin-bottom: 5px; }
+        .modal-caption p { color: var(--gradient-start); font-weight: bold; }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1010;
+        }
+
+        .close-modal:hover, .close-modal:focus { color: var(--gradient-start); }
+
+        /* Fixed Arrows on Screen Edges */
+        .modal-prev, .modal-next {
+            cursor: pointer;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 30px;
+            transition: 0.3s;
+            user-select: none;
+            background-color: transparent;
+            border: none;
+            z-index: 1010; 
+            pointer-events: auto;
+        }
+
+        .modal-next { right: 20px; }
+        .modal-prev { left: 20px; }
+
+        .modal-prev:hover, .modal-next:hover {
+            color: var(--gradient-start);
+            transform: translateY(-50%) scale(1.2); 
+        }
+
+        .image-counter {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .hidden { display: none !important; }
+
         .pagination-container {
             display: flex;
             justify-content: center;
@@ -223,11 +361,36 @@
             color: var(--text-muted);
         }
 
-        footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #333; margin-top: 50px; }
+        /* Footer: Outside the flex container to span full width */
+        footer { 
+            text-align: center; 
+            padding: 40px 0; 
+            color: var(--text-muted); 
+            border-top: 1px solid #333; 
+            margin-top: 50px; 
+            flex-shrink: 0; 
+        }
         
         .social-links { margin-top: 20px; }
         .social-links a { color: var(--text-main); font-size: 1.5rem; margin: 0 15px; }
         .social-links a:hover { color: var(--gradient-start); }
+
+        @media (max-width: 768px) {
+            .modal-image-container { max-width: 95vw; }
+            .modal-prev, .modal-next { 
+                padding: 10px; 
+                font-size: 20px;
+                background-color: rgba(0,0,0,0.5); 
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .modal-prev { left: 10px; }
+            .modal-next { right: 10px; }
+        }
     </style>
 </head>
 <body>
@@ -260,6 +423,28 @@
         <div id="productGrid" class="product-grid"></div>
 
         <div id="pagination" class="pagination-container"></div>
+    </div> 
+    <!-- END OF MAIN CONTAINER - Footer must be OUTSIDE this div to align with Index -->
+
+    <!-- MODAL STRUCTURE -->
+    <div id="productModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        
+        <!-- Fixed Arrows (Outside Content) -->
+        <button class="modal-prev" onclick="changeImage(-1)">&#10094;</button>
+        <button class="modal-next" onclick="changeImage(1)">&#10095;</button>
+
+        <div class="modal-content">
+            <div class="modal-image-container">
+                <img id="modalImg" class="modal-img" src="" alt="Product Detail">
+            </div>
+
+            <div class="modal-caption">
+                <h2 id="modalTitle">Product Name</h2>
+                <p id="modalCategory">Category</p>
+                <div id="imageCounter" class="image-counter">1 / 1</div>
+            </div>
+        </div>
     </div>
 
     <footer>
@@ -279,10 +464,24 @@
         let filteredProducts = [];  
         let currentPage = 1;
 
+        // Modal State
+        let currentModalImages = [];
+        let currentImageIndex = 0;
+
         const gridElement = document.getElementById('productGrid');
         const paginationElement = document.getElementById('pagination');
         const searchInput = document.getElementById('searchInput');
         const categoryFilter = document.getElementById('categoryFilter');
+        
+        // Modal Elements
+        const modal = document.getElementById('productModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalCounter = document.getElementById('imageCounter');
+        const modalContainer = document.querySelector('.modal-image-container'); 
+        const prevBtn = document.querySelector('.modal-prev');
+        const nextBtn = document.querySelector('.modal-next');
 
         fetch('products.json')
             .then(response => response.json())
@@ -324,16 +523,21 @@
 
             productsToShow.forEach((product, index) => {
                 const catString = product.categories.join(", ");
+                const hasMultipleImages = product.images && product.images.length > 1;
+                
                 const card = document.createElement('div');
                 card.className = 'product-card';
+                card.onclick = () => openModal(product);
+
                 const isTopRow = index < 4 && currentPage === 1;
-                
                 const imgLoading = isTopRow ? 'eager' : 'lazy';
                 const imgPriority = isTopRow ? 'fetchpriority="high"' : '';
-                
+                const thumbSrc = product.image; 
+
                 card.innerHTML = `
+                    ${hasMultipleImages ? '<div class="multi-badge"><i class="fas fa-images"></i> Multi</div>' : ''}
                     <img 
-                        src="images/${product.image}" 
+                        src="images/${thumbSrc}" 
                         alt="${product.alt}" 
                         loading="${imgLoading}" 
                         ${imgPriority} 
@@ -352,10 +556,105 @@
             });
         }
 
+        /* --- MODAL LOGIC --- */
+        function openModal(product) {
+            currentModalImages = product.images && product.images.length > 0 
+                ? product.images 
+                : [product.image];
+            
+            currentImageIndex = 0;
+
+            modalTitle.textContent = product.name;
+            modalCategory.textContent = product.categories.join(", ");
+            
+            updateModalImage();
+            
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden"; 
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto"; 
+            modalContainer.style.backgroundColor = 'transparent'; 
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex >= currentModalImages.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = currentModalImages.length - 1;
+            }
+            updateModalImage();
+        }
+
+        function updateModalImage() {
+            const imageName = currentModalImages[currentImageIndex];
+            
+            modalContainer.style.backgroundColor = 'transparent';
+            
+            modalImg.src = `images/${imageName}`;
+            
+            // Dynamic Background Color Logic
+            modalImg.onload = function() {
+                analyzeBackground(modalImg);
+            };
+
+            modalCounter.textContent = `${currentImageIndex + 1} / ${currentModalImages.length}`;
+
+            if (currentModalImages.length > 1) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+                modalCounter.style.display = 'block';
+            } else {
+                prevBtn.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+                modalCounter.style.display = 'none';
+            }
+        }
+
+        function analyzeBackground(imgElement) {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = 1;
+                canvas.height = 1;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(imgElement, 0, 0, 1, 1);
+                const p = ctx.getImageData(0, 0, 1, 1).data;
+                
+                if (p[3] === 0) {
+                    modalContainer.style.backgroundColor = 'transparent';
+                    return;
+                }
+                const detectedColor = `rgb(${p[0]}, ${p[1]}, ${p[2]})`;
+                modalContainer.style.backgroundColor = detectedColor;
+                
+            } catch (e) {
+                console.log("Could not detect color, defaulting to black");
+                modalContainer.style.backgroundColor = '#000';
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal || 
+                event.target.classList.contains('modal-content') || 
+                event.target.classList.contains('modal-image-container')) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (modal.style.display === "block") {
+                if (e.key === "Escape") closeModal();
+                if (e.key === "ArrowLeft") changeImage(-1);
+                if (e.key === "ArrowRight") changeImage(1);
+            }
+        });
+
         function renderPagination() {
             paginationElement.innerHTML = "";
             const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-            
             if (totalPages <= 1) return;
 
             const prevBtn = document.createElement('button');
@@ -367,10 +666,7 @@
 
             let startPage = Math.max(1, currentPage - 2);
             let endPage = Math.min(totalPages, startPage + 4);
-            
-            if (endPage - startPage < 4) {
-                startPage = Math.max(1, endPage - 4);
-            }
+            if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
 
             for (let i = startPage; i <= endPage; i++) {
                 const btn = document.createElement('button');
@@ -400,19 +696,16 @@
         function applyFilters() {
             const searchTerm = searchInput.value.toLowerCase();
             const selectedCategory = categoryFilter.value;
-
             filteredProducts = products.filter(product => {
                 const matchesSearch = product.name.toLowerCase().includes(searchTerm);
                 const matchesCategory = selectedCategory === 'all' || product.categories.includes(selectedCategory);
                 return matchesSearch && matchesCategory;
             });
-
             updateDisplay(true); 
         }
 
         searchInput.addEventListener('input', applyFilters);
         categoryFilter.addEventListener('change', applyFilters);
-
     </script>
 </body>
 </html>
