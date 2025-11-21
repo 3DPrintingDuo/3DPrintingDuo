@@ -2,19 +2,36 @@
     {
         "name": "Blob Rocks & Crate",
         "image": "BlobRocksCrates.webp",
+        "images": ["BlobRocksCrates.webp"],
         "alt": "Blob Rocks & Crate",
         "categories": ["Decor"]
     },
     {
         "name": "Labubu",
         "image": "Labubu.webp",
-        "alt": "Labubu Figure",
+        "images": ["Labubu.webp"],
+        "alt": "Labubu",
         "categories": ["Figures"]
     },
     {
         "name": "Labubu Keychain",
         "image": "labubukeychain.webp",
+        "images": ["labubukeychain.webp"],
         "alt": "Labubu Keychain",
         "categories": ["Figures", "Keychains"]
+    },
+    {
+        "name": "Oilers Fan Chain",
+        "image": "oilers1.webp",
+        "images": ["oilers1.webp","oilers2.webp","oilers3.webp"],
+        "alt": "Oilers Fan Chain",
+        "categories": ["Oilers"]
+    },
+    {
+        "name": "Oilers Jersey Style Fan Chain",
+        "image": "oiler1.webp",
+        "images": ["oiler1.webp","oiler2.webp","oiler3.webp","oiler4.webp","oiler5.webp","oiler6.webp","oiler7.webp"],
+        "alt": "Oilers Jersey Style Fan Chain",
+        "categories": ["Oilers"]
     }
 ]
