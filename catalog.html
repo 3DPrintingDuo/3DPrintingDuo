@@ -5,21 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Browse the 3D Printing Duo product catalog.">
     <title>Product Catalog | 3D Printing Duo</title>
-    <link rel="icon" href="logo.webp" type="image/webp">
+    <link rel="icon" href="images/logo.webp" type="image/webp">
     
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
-    
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         :root {
-            --gradient-start: #05e5aa; 
+            --gradient-start: #ffffff; 
             --gradient-end: #04b8df;   
-            --rainbow-gradient: linear-gradient(120deg, #ff0000, #ff7f00, #ffd700, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff);
             --bg-color: #1e2022;       
             --card-bg: #2a2c2e;
             --text-main: #ffffff;
@@ -61,44 +55,84 @@
 
         h1 { 
             text-align: center; 
-            margin-bottom: 40px; 
+            margin-bottom: 20px; 
             font-size: 2.5rem; 
-            background: var(--rainbow-gradient);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientFlow 5s linear infinite;
+            color: var(--text-main);
         }
 
-        @keyframes gradientFlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+        .controls-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px; 
+            margin-bottom: 40px;
+            flex-wrap: wrap; 
+        }
+
+        .search-wrapper, .filter-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .search-input, .category-select {
+            width: 100%;
+            padding: 12px 20px;
+            padding-right: 40px; 
+            border-radius: 50px;
+            border: 2px solid #333;
+            background-color: var(--card-bg);
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            appearance: none; 
+            -webkit-appearance: none;
+        }
+
+        .search-input:focus, .category-select:focus {
+            border-color: var(--gradient-start);
+        }
+
+        .category-select { cursor: pointer; }
+
+        .control-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none; 
         }
 
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
-            padding-bottom: 60px;
+            padding-bottom: 40px;
+            min-height: 400px; 
         }
 
         .product-card {
             position: relative;
             border-radius: 10px;
             overflow: hidden;
-            /* CHANGED: Set to Black to match photo backgrounds and hide 'fill in' bars */
             background: #000000; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            /* ADDED: A subtle border to define the card against the dark grey page */
             border: 1px solid #333;
             cursor: pointer;
             height: 300px; 
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-card img {
             width: 100%;
             height: 100%;
-            /* KEEPS: 'contain' prevents cutting off */
             object-fit: contain; 
             transition: transform 0.5s ease;
         }
@@ -129,11 +163,14 @@
             color: #fff;
             margin-bottom: 5px;
         }
-
-        .product-price {
-            font-size: 1.1rem;
-            color: var(--gradient-start); 
-            font-weight: 700;
+        
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--gradient-start);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            line-height: 1.3;
         }
 
         .product-card:hover img {
@@ -143,6 +180,48 @@
 
         .product-card:hover .product-overlay { opacity: 1; }
         .product-card:hover .product-info { transform: translateY(0); }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background-color: var(--gradient-start);
+            color: #000;
+        }
+
+        .page-btn.active {
+            background-color: var(--gradient-start);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
 
         footer { text-align: center; padding: 40px 0; color: var(--text-muted); border-top: 1px solid #333; margin-top: 50px; }
         
@@ -156,43 +235,31 @@
     <div class="container">
         <header>
             <a href="index.html">
-                <img src="logo.webp" alt="3D Printing Duo" class="logo-img" width="145" height="180">
+                <img src="images/logo.webp" alt="3D Printing Duo" class="logo-img" width="145" height="180" fetchpriority="high">
             </a>
             <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
         </header>
 
         <h1>Our Catalog</h1>
 
-        <div class="product-grid">
+        <div class="controls-container">
             
-            <div class="product-card">
-                <img src="BlobRocksCrates.webp" alt="Blob Rocks & Crate" loading="lazy" width="300" height="300">
-                <div class="product-overlay">
-                    <div class="product-info">
-                        <div class="product-name">Blob Rocks & Crate</div>
-                    </div>
-                </div>
+            <div class="filter-wrapper">
+                <select id="categoryFilter" class="category-select" aria-label="Filter by Category">
+                    <option value="all">All Categories</option>
+                </select>
+                <i class="fas fa-filter control-icon"></i>
             </div>
 
-            <div class="product-card">
-                <img src="Labubu.webp" alt="Labubu Figure" loading="lazy" width="300" height="300">
-                <div class="product-overlay">
-                    <div class="product-info">
-                        <div class="product-name">Labubu</div>
-                    </div>
-                </div>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search products..." aria-label="Search products">
+                <i class="fas fa-search control-icon"></i>
             </div>
-
-            <div class="product-card">
-                <img src="labubukeychain.webp" alt="Labubu Keychain" loading="lazy" width="300" height="300">
-                <div class="product-overlay">
-                    <div class="product-info">
-                        <div class="product-name">Labubu Keychain</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <div id="productGrid" class="product-grid"></div>
+
+        <div id="pagination" class="pagination-container"></div>
     </div>
 
     <footer>
@@ -205,5 +272,147 @@
         </div>
     </footer>
 
+    <script>
+        const ITEMS_PER_PAGE = 6; 
+
+        let products = [];          
+        let filteredProducts = [];  
+        let currentPage = 1;
+
+        const gridElement = document.getElementById('productGrid');
+        const paginationElement = document.getElementById('pagination');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+
+        fetch('products.json')
+            .then(response => response.json())
+            .then(data => {
+                products = data;
+                filteredProducts = data; 
+                initCategories();
+                updateDisplay();
+            })
+            .catch(error => {
+                console.error('Error loading products:', error);
+                gridElement.innerHTML = '<div class="no-results">Error loading catalog. Please try refreshing.</div>';
+            });
+
+        function initCategories() {
+            const allCategories = products.flatMap(p => p.categories);
+            const uniqueCategories = [...new Set(allCategories)];
+            uniqueCategories.sort();
+
+            uniqueCategories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                categoryFilter.appendChild(option);
+            });
+        }
+
+        function renderProducts() {
+            gridElement.innerHTML = "";
+            
+            if (filteredProducts.length === 0) {
+                gridElement.innerHTML = '<div class="no-results">No products found matching your criteria.</div>';
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = startIndex + ITEMS_PER_PAGE;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+
+            productsToShow.forEach((product, index) => {
+                const catString = product.categories.join(", ");
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                const isTopRow = index < 4 && currentPage === 1;
+                
+                const imgLoading = isTopRow ? 'eager' : 'lazy';
+                const imgPriority = isTopRow ? 'fetchpriority="high"' : '';
+                
+                card.innerHTML = `
+                    <img 
+                        src="images/${product.image}" 
+                        alt="${product.alt}" 
+                        loading="${imgLoading}" 
+                        ${imgPriority} 
+                        width="300" 
+                        height="300" 
+                        onerror="this.src='images/placeholder.jpg'"
+                    >
+                    <div class="product-overlay">
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-category">${catString}</div>
+                        </div>
+                    </div>
+                `;
+                gridElement.appendChild(card);
+            });
+        }
+
+        function renderPagination() {
+            paginationElement.innerHTML = "";
+            const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+            
+            if (totalPages <= 1) return;
+
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => { if(currentPage > 1) { currentPage--; updateDisplay(false); }};
+            paginationElement.appendChild(prevBtn);
+
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            
+            if (endPage - startPage < 4) {
+                startPage = Math.max(1, endPage - 4);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const btn = document.createElement('button');
+                btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+                btn.textContent = i;
+                btn.onclick = () => { currentPage = i; updateDisplay(false); };
+                paginationElement.appendChild(btn);
+            }
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => { if(currentPage < totalPages) { currentPage++; updateDisplay(false); }};
+            paginationElement.appendChild(nextBtn);
+        }
+
+        function updateDisplay(resetPage = true) {
+            if(resetPage) currentPage = 1;
+            renderProducts();
+            renderPagination();
+            if(!resetPage && window.scrollY > 300) {
+                document.querySelector('h1').scrollIntoView({behavior: 'smooth'});
+            }
+        }
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+
+            filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = selectedCategory === 'all' || product.categories.includes(selectedCategory);
+                return matchesSearch && matchesCategory;
+            });
+
+            updateDisplay(true); 
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+        categoryFilter.addEventListener('change', applyFilters);
+
+    </script>
 </body>
 </html>
