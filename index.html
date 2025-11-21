@@ -6,7 +6,7 @@
     <meta name="description" content="3D Printing Duo in Edmonton">
     <title>3D Printing Duo</title>
     
-    <link rel="icon" href="logo.webp" type="image/webp">
+    <link rel="icon" href="images/logo.webp" type="image/webp">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -17,10 +17,8 @@
 
     <style>
         :root {
-            --gradient-start: #05e5aa; 
+            --gradient-start: #ffffff; 
             --gradient-end: #04b8df;
-            /* CHANGED: Compacted the gradient by repeating the spectrum. 
-               This makes the bands thinner so the whole rainbow fits in the text. */
             --rainbow-gradient: linear-gradient(
                 120deg, 
                 #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #8b00ff, #ff00ff,
@@ -50,7 +48,6 @@
 
         .rainbow-text {
             background: var(--rainbow-gradient);
-            /* Size 200% with the double-gradient ensures 1 full rainbow is always visible */
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -220,7 +217,7 @@
 
     <div class="container">
         <header>
-            <img src="logo.webp" alt="3D Printing Duo" class="logo-img" width="145" height="180">
+            <img src="images/logo.webp" alt="3D Printing Duo" class="logo-img" width="145" height="180">
         </header>
     </div>
 
@@ -281,25 +278,25 @@
             
             <div class="slideshow-container">
                 <div class="mySlides fade">
-                    <img src="gallery1.webp" alt="Store Interior - View 1" width="800" height="500">
+                    <img src="images/gallery1.webp" alt="Store Interior - View 1" width="800" height="500">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery2.webp" alt="Store Interior - View 2" loading="lazy" width="800" height="500">
+                    <img src="images/gallery2.webp" alt="Store Interior - View 2" loading="lazy" width="800" height="500">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery3.webp" alt="Store Interior - View 3" loading="lazy" width="800" height="500">
+                    <img src="images/gallery3.webp" alt="Store Interior - View 3" loading="lazy" width="800" height="500">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery4.webp" alt="Store Interior - View 4" loading="lazy" width="800" height="500">
+                    <img src="images/gallery4.webp" alt="Store Interior - View 4" loading="lazy" width="800" height="500">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery5.webp" alt="Store Interior - View 5" loading="lazy" width="800" height="500">
+                    <img src="images/gallery5.webp" alt="Store Interior - View 5" loading="lazy" width="800" height="500">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery6.jpg" alt="Store Interior - View 6" loading="lazy" width="800" height="500">
+                    <img src="images/gallery6.webp" alt="Store Interior - View 6" loading="lazy" width="800" height="500">
                 </div>
                 <div class="mySlides fade">
-                    <img src="gallery7.jpg" alt="Store Interior - View 7" loading="lazy" width="800" height="500">
+                    <img src="images/gallery7.webp" alt="Store Interior - View 7" loading="lazy" width="800" height="500">
                 </div>
 
                 <button class="prev" onclick="plusSlides(-1)" aria-label="Previous Slide">&#10094;</button>
